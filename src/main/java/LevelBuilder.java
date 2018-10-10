@@ -1,13 +1,9 @@
-import org.lwjgl.Sys;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import tile.TileImageBuilder;
-import utilities.ClusteredTree;
 
-import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -143,14 +139,17 @@ public class LevelBuilder {
         builder.addBuses(busImage, L1_BUS1_OFF, L1_BUS1_SEP, L1_BUS1_Y, Wrappable.DIR_LEFT);
         builder.addBuses(busImage, L1_BUS2_OFF, L1_BUS2_SEP, L1_BUS2_Y, Wrappable.DIR_RIGHT);
         builder.addBuses(busImage, L1_BUS3_OFF, L1_BUS3_SEP, L1_BUS3_Y, Wrappable.DIR_LEFT);
-        builder.addBuses(busImage, L1_BUS4_OFF, L1_BUS4_SEP, L1_BUS4_Y, Wrappable.DIR_RIGHT);
-        builder.addBuses(busImage, L1_BUS5_OFF, L1_BUS5_SEP, L1_BUS5_Y, Wrappable.DIR_LEFT);
+        //builder.addBuses(busImage, L1_BUS4_OFF, L1_BUS4_SEP, L1_BUS4_Y, Wrappable.DIR_RIGHT);
+        //builder.addBuses(busImage, L1_BUS5_OFF, L1_BUS5_SEP, L1_BUS5_Y, Wrappable.DIR_LEFT);
 
-
+        Sprite racecar = new Racecar(L1_BUS5_OFF, L1_BUS5_Y, Wrappable.DIR_RIGHT);
+        builder.addSprite(racecar);
+        Sprite bike = new Bike(L1_BUS4_OFF, L1_BUS4_Y, Wrappable.DIR_RIGHT);
+        builder.addSprite(bike);
         // Finally add the sprite for the player
         // this needs to be the last because it
         // needs to draw on top of the other sprites.
-        builder.addSprite(player);
+        //builder.addSprite(player);
 
         // Return the sprites for the level.
         return builder.getSprites();

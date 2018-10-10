@@ -1,17 +1,11 @@
-import org.lwjgl.Sys;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
-import utilities.BoundingBox;
+import utilities.AssetManager;
+import utilities.ClusteredArray;
 
 import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Represents the games world.
@@ -20,15 +14,17 @@ import java.util.concurrent.atomic.AtomicLong;
  * @version 0.4
  */
 public class World {
-
+	private Player player;
 	// store all the sprites that we need to render
 	private ArrayList<Sprite> sprites;
 
+	private ClusteredArray<Sprite> spritesCluster;
 
 	/**
 	 *  Create the world used in the game.
 	 */
-	public World() {
+	public World() throws SlickException{
+		player = new Player(AssetManager.getImage("frog"), LevelBuilder.L1_PLAYER_X, LevelBuilder.L1_PLAYER_Y, true);
 		//sprites = new PriorityQueue<Sprite>(int,Collections.reverseOrder());
 		sprites = new ArrayList<Sprite>();
 
@@ -58,24 +54,13 @@ public class World {
 		for(int i=0; i < sprites.size(); i++) {
 			sprites.get(i).update(input, delta);
 		}
+		player.update(input, delta);
 
 		for(int i=0; i < sprites.size(); i++) {
-			Sprite s1 = sprites.get(i);
-
-			for(int j=0; j < sprites.size(); j++) {
-				// This will always trigger true, and just doesnt make
-				// any sense to check for intersections, since they are
-				// the same sprite
-				if(j==i) {
-					continue;
-				}
-
-				Sprite s2 = sprites.get(j);
-				if(s1.isCollidable() && s2.isCollidable()) {
-					if(s1.intersects(s2)) {
-						s1.contactSprite(s2);
-					}
-				}
+			Sprite sprite = sprites.get(i);
+			if(sprite.isCollidable() && player.intersects(sprite)) {
+				player.contactSprite(sprite);
+				break;
 			}
 		}
 	}
@@ -91,7 +76,7 @@ public class World {
 		for(int i=0; i < sprites.size(); i++) {
 			sprites.get(i).render(g);
 		}
-
+		player.render(g);
 	}
 
 }

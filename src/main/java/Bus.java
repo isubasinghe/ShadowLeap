@@ -12,8 +12,6 @@ import utilities.BoundingBox;
 public class Bus extends Wrappable{
     // A global const for the speed of the bus, given in the spec sheet.
     protected static final float BUS_SPEED = 0.15f;
-    // The physics updating is done through the bounding box held here
-    private BoundingBox box;
 
     /**
      * Create a new bus sprite with the given params

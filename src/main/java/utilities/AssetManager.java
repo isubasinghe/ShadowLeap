@@ -6,7 +6,7 @@ import org.newdawn.slick.SlickException;
 import java.util.HashMap;
 
 public class AssetManager {
-    private static HashMap<String, Image> assets;
+    private static HashMap<String, Image> assets = new HashMap<>();
     private static final String DEFAULT_ASSETS_FOLDER = "./assets/";
     public static Image addImage(String location, String name) throws SlickException {
         Image img = new Image(location);

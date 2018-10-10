@@ -11,7 +11,7 @@ import org.newdawn.slick.Input;
  * @author https://isubasinghe.me
  * @version 0.2
  */
-public class Wrappable extends Sprite{
+public class Wrappable extends Sprite {
     /** A constant representing the left direction*/
     protected static final int DIR_LEFT = 0;
     /** A constant representing the right direction*/
@@ -72,5 +72,9 @@ public class Wrappable extends Sprite{
 
             default: break;
         }
+    }
+
+    public void setTravelDirection(int DIR) {
+        this.travelDirection = DIR;
     }
 }

@@ -142,6 +142,10 @@ public class Sprite {
 		// Should be called when one sprite makes contact with another. 
 	}
 
+	public void afterContact() {
+
+	}
+
 	private BoundingBox getBox() {
 		return this.box;
 	}

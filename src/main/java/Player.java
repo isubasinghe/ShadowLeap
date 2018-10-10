@@ -1,8 +1,8 @@
-import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import utilities.BoundingBox;
+import utilities.AssetManager;
 
 import javax.swing.*;
 
@@ -14,10 +14,14 @@ import javax.swing.*;
  * @version 0.2
  */
 public class Player extends Sprite {
+    Sprite lifeSprite;
+    private static float lifeXStart = 24;
+    private static float lifeYStart = 744;
+    private static float lifeXSkip = 32;
 
     private static float ANIMATION_TIME_MICRO = 1000;
     private float deathCounter = ANIMATION_TIME_MICRO;
-    private static int START_PLAYER_LIVES = 3;
+    private static int START_PLAYER_LIVES = 4;
     private int lives = START_PLAYER_LIVES;
     private boolean died = false;
 
@@ -27,8 +31,10 @@ public class Player extends Sprite {
      * @param x The x position
      * @param y The y position
      */
-    public Player(Image img, float x, float y, boolean addBox) {
+    public Player(Image img, float x, float y, boolean addBox) throws SlickException {
+
         super(img, x, y, addBox);
+        lifeSprite = new Sprite(AssetManager.getImage("lives"), lifeXStart, lifeYStart, false);
     }
 
     /**
@@ -62,11 +68,21 @@ public class Player extends Sprite {
         }
     }
 
+    @Override
+    public void render(Graphics g) {
+        super.render(g);
+        for(int i=0; i < lives-1; i++) {
+            lifeSprite.setPosition(lifeXStart + lifeXSkip*i, lifeYStart);
+            lifeSprite.render(g);
+        }
+    }
+
 
     @Override
     public void contactSprite(Sprite other) {
         died = true;
         lives--;
     }
+
 
 }

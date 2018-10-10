@@ -31,6 +31,9 @@ public class App extends BasicGame {
     /** Game FPS*/
     private static final int FPS = 60;
 
+    private int SCALING_TIME = 1;
+    private int counter = 0;
+
     private World world;
 
     public App() {
@@ -53,7 +56,11 @@ public class App extends BasicGame {
             throws SlickException {
         // Get data about the current input (keyboard state).
         Input input = gc.getInput();
-        world.update(input, delta);
+        if(counter >= SCALING_TIME) {
+            world.update(input, delta);
+            counter = 0;
+        }
+        counter += delta;
     }
 
     /** Render the entire screen, so it reflects the current game state.
@@ -71,7 +78,7 @@ public class App extends BasicGame {
     public static void main(String[] args)
             throws Exception {
         AppGameContainer app = new AppGameContainer(new App());
-        app.setTargetFrameRate(FPS);
+        app.setTargetFrameRate(60);
         app.setShowFPS(false);
         app.setVSync(true);
 
