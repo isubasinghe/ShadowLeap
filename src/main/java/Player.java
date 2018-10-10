@@ -77,11 +77,22 @@ public class Player extends Sprite {
         }
     }
 
+    public void triggerDeath() {
+        died = true;
+        lives--;
+    }
 
     @Override
     public void contactSprite(Sprite other) {
-        died = true;
-        lives--;
+        if(other instanceof Rideables) {
+            ((Rideables) other).attachPlayer(this);
+        }else if(other instanceof Turtle) {
+            if( ((Turtle) other).getCondition() == Turtle.STATUS_DIVE ) {
+                triggerDeath();
+            }
+        } else {
+            triggerDeath();
+        }
     }
 
 

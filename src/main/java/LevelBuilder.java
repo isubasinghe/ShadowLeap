@@ -137,11 +137,14 @@ public class LevelBuilder {
 
         // Add the buses
         builder.addBuses(busImage, L1_BUS1_OFF, L1_BUS1_SEP, L1_BUS1_Y, Wrappable.DIR_LEFT);
-        builder.addBuses(busImage, L1_BUS2_OFF, L1_BUS2_SEP, L1_BUS2_Y, Wrappable.DIR_RIGHT);
-        builder.addBuses(busImage, L1_BUS3_OFF, L1_BUS3_SEP, L1_BUS3_Y, Wrappable.DIR_LEFT);
+        //builder.addBuses(busImage, L1_BUS2_OFF, L1_BUS2_SEP, L1_BUS2_Y, Wrappable.DIR_RIGHT);
+        //builder.addBuses(busImage, L1_BUS3_OFF, L1_BUS3_SEP, L1_BUS3_Y, Wrappable.DIR_LEFT);
         //builder.addBuses(busImage, L1_BUS4_OFF, L1_BUS4_SEP, L1_BUS4_Y, Wrappable.DIR_RIGHT);
         //builder.addBuses(busImage, L1_BUS5_OFF, L1_BUS5_SEP, L1_BUS5_Y, Wrappable.DIR_LEFT);
-
+        Log log = new Log("longlog", L1_BUS2_OFF, L1_BUS2_Y, 0.15f, Wrappable.DIR_RIGHT);
+        builder.addSprite(log);
+        Bulldozer dozer = new Bulldozer(L1_BUS3_OFF, L1_BUS3_Y, Wrappable.DIR_RIGHT);
+        builder.addSprite(dozer);
         Sprite racecar = new Racecar(L1_BUS5_OFF, L1_BUS5_Y, Wrappable.DIR_RIGHT);
         builder.addSprite(racecar);
         Sprite bike = new Bike(L1_BUS4_OFF, L1_BUS4_Y, Wrappable.DIR_RIGHT);

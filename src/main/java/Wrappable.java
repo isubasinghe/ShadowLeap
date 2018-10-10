@@ -72,6 +72,10 @@ public class Wrappable extends Sprite {
 
             default: break;
         }
+        if(box != null) {
+            box.setX(this.getX());
+            box.setY(this.getY());
+        }
     }
 
     public void setTravelDirection(int DIR) {

@@ -2,7 +2,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import utilities.AssetManager;
-import utilities.ClusteredArray;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -17,8 +16,6 @@ public class World {
 	private Player player;
 	// store all the sprites that we need to render
 	private ArrayList<Sprite> sprites;
-
-	private ClusteredArray<Sprite> spritesCluster;
 
 	/**
 	 *  Create the world used in the game.

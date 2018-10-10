@@ -8,12 +8,8 @@ public class Racecar extends Wrappable{
         super(AssetManager.getImage("racecar"), x, y,RACECAR_SPEED, travelDir, true);
     }
 
-    @Override
-    public void update(Input input, int delta) {
-        super.update(input, delta);
-        if(box != null) {
-            box.setX(this.getX());
-            box.setY(this.getY());
-        }
-    }
+
+
+
+
 }
