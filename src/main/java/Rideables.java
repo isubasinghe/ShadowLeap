@@ -4,7 +4,8 @@ import org.newdawn.slick.Input;
 
 public class Rideables extends Wrappable {
     Player player;
-    protected static boolean clippedPush = true;
+    protected boolean clippedPush = true;
+    protected boolean pushPlayer = true;
     public Rideables(Image img,float x, float y, float travelSpeed,int travelDir) {
         super(img, x, y, travelSpeed, travelDir, true);
     }
@@ -15,8 +16,12 @@ public class Rideables extends Wrappable {
         super.update(input, delta);
 
         if(player != null) {
-            if(player.intersects(this)) {
-                player.shiftPosition(this.speed*delta, 0, clippedPush);
+            if(player.intersects(this) && pushPlayer) {
+                if(travelDirection == DIR_RIGHT) {
+                    player.shiftPosition(this.speed*delta, 0, clippedPush);
+                }else {
+                    player.shiftPosition(-this.speed*delta, 0, clippedPush);
+                }
             }else {
                 player = null;
             }

@@ -7,6 +7,7 @@ public class Bulldozer extends Rideables{
     public Bulldozer(float x, float y, int travelDir) throws SlickException {
         super(AssetManager.getImage("bulldozer"), x, y, BULLDOZER_SPEED, travelDir);
         clippedPush = false;
+        solid = true;
     }
 
     @Override

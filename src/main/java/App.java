@@ -78,7 +78,7 @@ public class App extends BasicGame {
     public static void main(String[] args)
             throws Exception {
         AppGameContainer app = new AppGameContainer(new App());
-        app.setTargetFrameRate(60);
+        app.setTargetFrameRate(FPS);
         app.setShowFPS(false);
         app.setVSync(true);
 

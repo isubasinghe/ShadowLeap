@@ -50,7 +50,7 @@ public class Wrappable extends Sprite {
 
             case DIR_LEFT:
                 // Check if we have gone too much to the left
-                if(this.getX() < 0) {
+                if((this.getX() + this.getImage().getWidth()/2) < 0) {
                     // We move the sprite to the right hand side of the screen
                     this.shiftPosition(App.SCREEN_WIDTH  + this.getImage().getWidth()/2, 0, false);
                 }else {

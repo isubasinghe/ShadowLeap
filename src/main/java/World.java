@@ -21,15 +21,19 @@ public class World {
 	 *  Create the world used in the game.
 	 */
 	public World() throws SlickException{
-		player = new Player(AssetManager.getImage("frog"), LevelBuilder.L1_PLAYER_X, LevelBuilder.L1_PLAYER_Y, true);
+		player = new Player(AssetManager.getImage("frog"), LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y, true);
 		//sprites = new PriorityQueue<Sprite>(int,Collections.reverseOrder());
-		sprites = new ArrayList<Sprite>();
+
 
 		try {
 			// Obtain the sprites for level 1, the parameter
-			sprites = LevelBuilder.buildLevelOne();
+			sprites = LevelBuilder.buildWorldByCSV("./assets/levels/1.lvl");
+			for(int i=0; i < sprites.size(); i++) {
+				System.out.println(sprites.get(i));
+			}
+			//Thread.sleep(1000*1000);
 
-		}catch(SlickException e) {
+		}catch(Exception e) {
 
 			JOptionPane.showMessageDialog(new JFrame(), e.getMessage(),
 					"SlickException", JOptionPane.ERROR_MESSAGE);
@@ -49,17 +53,22 @@ public class World {
 
 		// Iterate over the sprites and update them
 		for(int i=0; i < sprites.size(); i++) {
-			sprites.get(i).update(input, delta);
+			Sprite sprite = sprites.get(i);
+			sprite.update(input, delta);
+			player.setMoveValidity(sprite);
 		}
-		player.update(input, delta);
+		//player.update(input, delta);
 
-		for(int i=0; i < sprites.size(); i++) {
+		for(int i=sprites.size()-1; i >= 0; i--) {
 			Sprite sprite = sprites.get(i);
 			if(sprite.isCollidable() && player.intersects(sprite)) {
+				System.out.println(sprite);
 				player.contactSprite(sprite);
 				break;
 			}
 		}
+		player.update(input, delta);
+		player.resetMoveValidity();
 	}
 
 	/**

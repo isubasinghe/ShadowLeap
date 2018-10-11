@@ -11,6 +11,7 @@ public class Sprite {
 	//Store the coordinates
 	private float x, y;
 
+	protected boolean solid = false;
 	// Store the image
 	private Image image;
 	protected BoundingBox box;
@@ -65,10 +66,10 @@ public class Sprite {
 			 * If we are stopping the sprite from moving offscreen
 			 * we need to set the changes to 0 in the respective coordinate system
 			 */
-			if(this.x + deltaX > App.SCREEN_WIDTH) {
+			if(this.x + deltaX  + image.getWidth()/2 > App.SCREEN_WIDTH) {
 				deltaX = 0;
 			}
-			if(this.x + deltaX < 0) {
+			if(this.x + deltaX - image.getWidth()/2< 0) {
 				deltaX = 0;
 			}
 			if(this.y + deltaY > App.SCREEN_HEIGHT) {
@@ -117,9 +118,11 @@ public class Sprite {
 	public void update(Input input, int delta) {
 
 	}
+	/*
 	public void setImage(Image image) {
 		this.image = image;
 	}
+	*/
 
 	/**
 	 *
@@ -142,8 +145,12 @@ public class Sprite {
 		// Should be called when one sprite makes contact with another. 
 	}
 
-	public void afterContact() {
+	public boolean isSolid() {
+		return solid;
+	}
 
+	public void setSolid(boolean solid) {
+		this.solid = solid;
 	}
 
 	private BoundingBox getBox() {
