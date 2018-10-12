@@ -4,7 +4,7 @@ import utilities.AssetManager;
 
 public class Bulldozer extends Rideables{
     private static final float BULLDOZER_SPEED = 0.05f;
-
+    private static final String ASSET_NAME = "bulldozer";
     /**
      * Create a bulldozer at the given coordinates,
      * bulldozers have the ability to squish a player when
@@ -15,7 +15,7 @@ public class Bulldozer extends Rideables{
      * @throws SlickException
      */
     public Bulldozer(float x, float y, int travelDir) throws SlickException {
-        super(AssetManager.getImage("bulldozer"), x, y, BULLDOZER_SPEED, travelDir);
+        super(AssetManager.getImage(ASSET_NAME), x, y, BULLDOZER_SPEED, travelDir);
         clippedPush = false;
         solid = true;
     }

@@ -1,33 +1,20 @@
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import utilities.AssetManager;
-import utilities.BoundingBox;
+
 
 /**
  * A bus class that inherits from Wrappable,
  * this ensures that it wraps around the screen
  * @author Isitha Subasinghe
  * @author https://isubasinghe.me
- * @version 0.2
+ * @version 0.3
  */
 public class Bus extends Wrappable{
+    private static final String ASSET_NAME = "bus";
     // A global const for the speed of the bus, given in the spec sheet.
     protected static final float BUS_SPEED = 0.15f;
 
-    /**
-     * Create a new bus sprite with the given params
-     * @param busImg Image of the bus
-     * @param x The x coord of the bus
-     * @param y The y coord of the bus
-     * @param speed The speed of the bus
-     * @param travelDirection The direction of travel for the bus
-     */
-    @Deprecated
-    public Bus(Image busImg, float x, float y, float speed, int travelDirection, boolean addBox) {
-        super(busImg, x, y, speed, travelDirection, addBox);
-
-    }
 
     /**
      * Create a new bus sprite with the given params
@@ -37,7 +24,7 @@ public class Bus extends Wrappable{
      * @throws SlickException
      */
     public Bus(float x, float y, int travelDir) throws SlickException {
-        super(AssetManager.getImage("bus"), x, y, BUS_SPEED, travelDir, true);
+        super(AssetManager.getImage(ASSET_NAME), x, y, BUS_SPEED, travelDir, true);
     }
 
 

@@ -3,6 +3,7 @@ import org.newdawn.slick.Input;
 import utilities.AssetManager;
 
 public class Racecar extends Wrappable{
+    private static final String ASSET_NAME = "racecar";
     private static final float RACECAR_SPEED = 0.5f;
 
     /**
@@ -13,7 +14,7 @@ public class Racecar extends Wrappable{
      * @throws SlickException
      */
     public Racecar(float x, float y, int travelDir) throws SlickException {
-        super(AssetManager.getImage("racecar"), x, y,RACECAR_SPEED, travelDir, true);
+        super(AssetManager.getImage(ASSET_NAME), x, y,RACECAR_SPEED, travelDir, true);
     }
 
 

@@ -36,6 +36,7 @@ public class World {
 	}
 	private void loadLevel() {
 		try {
+			// When a new level is loaded, previous level data must be cleared
 			logs.clear();
 			String file = String.format("%s/%d.lvl", LEVELS_FLDR, level);
 			sprites = LevelBuilder.buildWorldByCSV(file);
@@ -62,8 +63,7 @@ public class World {
 	 *  Create the world used in the game.
 	 */
 	public World() throws SlickException{
-		player = new Player(AssetManager.getImage("frog"),
-				LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y, true);
+		player = new Player(LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y);
 		rand = new Random();
 		logs = new ArrayList<>();
 		loadLevel();
@@ -144,7 +144,8 @@ public class World {
 			float slotX = FrogSlots.getX(frogSlotIndex);
 			float slotY = FrogSlots.getY(frogSlotIndex);
 			//Spawn a new sprite at the coordinates
-			Sprite playerInSlot = new Sprite(AssetManager.getImage("frog"), slotX, slotY, true);
+			Sprite playerInSlot = new Sprite(AssetManager.getImage(Player.ASSET_NAME_PLAYER),
+					slotX, slotY, true);
 			sprites.add(playerInSlot);
 			//Move the player back
 			player.resetPlayer();

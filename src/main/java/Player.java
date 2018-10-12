@@ -12,9 +12,11 @@ import javax.swing.*;
  * this is the frog.
  * @author Isitha Subasinghe
  * @author https://isubasinghe.me
- * @version 0.2
+ * @version 0.3
  */
 public class Player extends Sprite {
+    public static final String ASSET_NAME_PLAYER = "frog";
+    private static final String ASSET_NAME_LIVES = "lives";
 
     private static final float LIFE_X_START = 24;
     private static final float LIFE_Y_START = 744;
@@ -29,14 +31,13 @@ public class Player extends Sprite {
 
     /**
      * Create a new player class
-     * @param img The Image to use
      * @param x The x position
      * @param y The y position
      */
-    public Player(Image img, float x, float y, boolean addBox) throws SlickException {
+    public Player(float x, float y) throws SlickException {
 
-        super(img, x, y, addBox);
-        lifeSprite = new Sprite(AssetManager.getImage("lives"), LIFE_X_START, LIFE_Y_START, false);
+        super(AssetManager.getImage(ASSET_NAME_PLAYER), x, y, true);
+        lifeSprite = new Sprite(AssetManager.getImage(ASSET_NAME_LIVES), LIFE_X_START, LIFE_Y_START, false);
         moveCheckBox = new BoundingBox(this.getImage(), 0, 0);
     }
 

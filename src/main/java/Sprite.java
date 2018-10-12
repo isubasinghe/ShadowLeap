@@ -5,7 +5,7 @@ import utilities.BoundingBox;
  * Represents a sprite in the game
  * @author Isitha Subasinghe
  * @author https://isubasinghe.me
- * @version 0.3
+ * @version 0.4
  */
 public class Sprite {
 	//Store the coordinates

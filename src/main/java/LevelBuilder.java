@@ -76,7 +76,7 @@ public class LevelBuilder {
                         sprites.add(longLog);
                         break;
                     case "bus":
-                        Bus bus = new Bus(AssetManager.getImage("bus"), assetX, assetY, Bus.BUS_SPEED, travelDir, true);
+                        Bus bus = new Bus(assetX, assetY, travelDir);
                         sprites.add(bus);
                         break;
                     case "bulldozer":

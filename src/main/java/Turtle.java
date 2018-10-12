@@ -5,6 +5,7 @@ import org.newdawn.slick.SlickException;
 import utilities.AssetManager;
 
 public class Turtle extends Rideables{
+    private static final String ASSET_NAME = "turtles";
     public static final float TURTLE_SPEED = 0.085f;
 
     private static int DIVING_TIME_MILLI = 7000;
@@ -24,7 +25,7 @@ public class Turtle extends Rideables{
      * @throws SlickException
      */
     public Turtle(float x, float y, int travelDir) throws SlickException {
-        super(AssetManager.getImage("turtles"), x, y, TURTLE_SPEED, travelDir);
+        super(AssetManager.getImage(ASSET_NAME), x, y, TURTLE_SPEED, travelDir);
     }
 
     /**

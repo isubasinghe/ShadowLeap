@@ -7,6 +7,7 @@ import utilities.BoundingBox;
 import java.util.ArrayList;
 
 public class ExtraLife extends Sprite {
+    private static final String ASSET_NAME = "extralife";
 
     private static final int KILL_TIME_MILLI = 14*1000;
     private static final int MOVE_TIME_MILLI = 2*1000;
@@ -28,7 +29,7 @@ public class ExtraLife extends Sprite {
      * @throws SlickException
      */
     public ExtraLife(ArrayList<Sprite> sprites, Log log) throws SlickException {
-        super(AssetManager.getImage("extralife"), log.getX(), log.getY(), true);
+        super(AssetManager.getImage(ASSET_NAME), log.getX(), log.getY(), true);
         this.sprites = sprites;
         this.log = log;
     }
