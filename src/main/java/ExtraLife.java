@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class ExtraLife extends Sprite {
-    private static final int KILL_TIME_MILLI = 14*1000;
+    private static final int KILL_TIME_MILLI = 14*100;
 
     private int currentTime = 0;
     private ArrayList<Sprite> sprites;

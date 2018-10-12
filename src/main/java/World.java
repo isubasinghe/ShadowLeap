@@ -6,6 +6,7 @@ import utilities.AssetManager;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Represents the games world.
@@ -20,11 +21,17 @@ public class World {
 
 	private static final String LEVELS_FLDR = "./assets/levels";
 	private static int level = 0;
-	private static final int TIME_MIN_MILLI = 25*1000;
+	private static final int TIME_MIN_MILLI = 25*100;
+	private static  final int BOUND_ZEROED = (35*100) - TIME_MIN_MILLI;
 
 	private int currentTime = 0;
 	private int randomTimer = 0;
+	private Random rand;
 
+	private void startTimer() {
+		currentTime = 0;
+		randomTimer = rand.nextInt(BOUND_ZEROED) + TIME_MIN_MILLI;
+	}
 	private void loadLevel() {
 		try {
 			String file = String.format("%s/%d.lvl", LEVELS_FLDR, level);
@@ -43,7 +50,9 @@ public class World {
 	 */
 	public World() throws SlickException{
 		player = new Player(AssetManager.getImage("frog"), LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y, true);
+		rand = new Random();
 		loadLevel();
+		startTimer();
 	}
 
 	/**
@@ -78,10 +87,14 @@ public class World {
 	}
 
 
-	private void spawnExtraLife(int delta) {
+	private void spawnExtraLife(int delta) throws SlickException{
 		if(currentTime >= randomTimer) {
-
+			startTimer();
+			ExtraLife extraLife = new ExtraLife(sprites);
+			sprites.add(extraLife);
 		}
+		currentTime += delta;
+
 	}
 
 	/**
