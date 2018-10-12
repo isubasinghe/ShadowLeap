@@ -15,12 +15,13 @@ import javax.swing.*;
  * @version 0.2
  */
 public class Player extends Sprite {
-    Sprite lifeSprite;
-    private static float lifeXStart = 24;
-    private static float lifeYStart = 744;
-    private static float lifeXSkip = 32;
-    private static int START_PLAYER_LIVES = 4;
 
+    private static final float LIFE_X_START = 24;
+    private static final float LIFE_Y_START = 744;
+    private static final float LIFE_X_SKIP = 32;
+
+    private int START_PLAYER_LIVES = 4;
+    private Sprite lifeSprite;
     private boolean canMoveRight, canMoveLeft, canMoveUp, canMoveDown = true;
     private int lives = START_PLAYER_LIVES;
     private boolean died = false;
@@ -35,14 +36,28 @@ public class Player extends Sprite {
     public Player(Image img, float x, float y, boolean addBox) throws SlickException {
 
         super(img, x, y, addBox);
-        lifeSprite = new Sprite(AssetManager.getImage("lives"), lifeXStart, lifeYStart, false);
+        lifeSprite = new Sprite(AssetManager.getImage("lives"), LIFE_X_START, LIFE_Y_START, false);
         moveCheckBox = new BoundingBox(this.getImage(), 0, 0);
     }
 
+    private void addLife() {
+        lives++;
+    }
+
+    /**
+     * setMoveValidity sets the players available move positions based
+     * upon the input
+     * @param sprite The sprite to check move position
+     */
     public void setMoveValidity(Sprite sprite) {
+        // We can move if the sprite isnt solid,
+        // so dont change anything
         if(!sprite.isSolid()) {
             return;
         }
+        // Set a checkBox to A tile
+        // right, left, down and up of the player
+        // to see if it collides with the current sprite.
         moveCheckBox.setY(getY());
         moveCheckBox.setX(getX() + App.TILE_SIZE);
         if(sprite.box.intersects(moveCheckBox)) {
@@ -65,6 +80,10 @@ public class Player extends Sprite {
 
     }
 
+    /**
+     * Resets the player ability to move to true
+     * in all directions.
+     */
     public void resetMoveValidity() {
         canMoveDown = true;
         canMoveUp = true;
@@ -72,6 +91,9 @@ public class Player extends Sprite {
         canMoveLeft = true;
     }
 
+    /**
+     * Resets the players Position to (PLAYER_X, PLAYER_Y)
+     */
     public void resetPlayer() {
         setPosition(LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y);
     }
@@ -107,27 +129,44 @@ public class Player extends Sprite {
         }
     }
 
+    /**
+     * Render the player and also the lifes it has
+     * @param g The graphics handle
+     */
     @Override
     public void render(Graphics g) {
         super.render(g);
         for(int i=0; i < lives-1; i++) {
-            lifeSprite.setPosition(lifeXStart + lifeXSkip*i, lifeYStart);
+            lifeSprite.setPosition(LIFE_X_START + LIFE_X_SKIP*i, LIFE_Y_START);
             lifeSprite.render(g);
         }
     }
 
+    /**
+     * Kill the player once
+     */
     public void triggerDeath() {
         died = true;
         lives--;
     }
 
+    /**
+     * Handle collisions with a sprite
+     * @param other the other sprite that contacted with player
+     */
     @Override
     public void contactSprite(Sprite other) {
+        // Rideables don't trigger death
         if(other instanceof Rideables) {
+            // Attach the player to the rideable
             ((Rideables) other).attachPlayer(this);
+        }else if(other instanceof ExtraLife) {
+            addLife();
         }else {
             triggerDeath();
         }
+        // Turtle may not trigger death,
+        // however it depends on the condition of the turtle
         if(other instanceof Turtle) {
             if( ((Turtle) other).getCondition() == Turtle.STATUS_DIVE ) {
                 triggerDeath();

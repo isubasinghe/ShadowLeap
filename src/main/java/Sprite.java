@@ -90,6 +90,11 @@ public class Sprite {
 		}
 	}
 
+	/**
+	 * Update the sprites position
+	 * @param x The x coordinate
+	 * @param y The y coordinate
+	 */
 	public void setPosition(float x, float y) {
 		this.x = x;
 		this.y = y;
@@ -141,14 +146,26 @@ public class Sprite {
 	}
 
 
+	/**
+	 * Handle collisions
+	 * @param other the other sprite that collided
+	 */
 	public void contactSprite(Sprite other) {
-		// Should be called when one sprite makes contact with another. 
+		// Should be called when one sprite makes contact with another.
 	}
 
+	/**
+	 * Indicates if we can move up to this sprite or not
+	 * @return True if the sprite is solid, else false
+	 */
 	public boolean isSolid() {
 		return solid;
 	}
 
+	/**
+	 * Sets the solidity of the sprite
+	 * @param solid Is the sprite solid or not
+	 */
 	public void setSolid(boolean solid) {
 		this.solid = solid;
 	}
@@ -157,10 +174,19 @@ public class Sprite {
 		return this.box;
 	}
 
+	/**
+	 * Checks if a sprite, intersects with another
+	 * @param other The other sprite
+	 * @return A truth value of intersection between the two sprites
+	 */
 	public boolean intersects(Sprite other) {
 		return this.box.intersects(other.getBox());
 	}
 
+	/**
+	 *
+	 * @return is the sprite attached to a bounding box
+	 */
 	public boolean isCollidable () {
 		return this.collidable;
 	}

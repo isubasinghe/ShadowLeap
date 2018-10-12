@@ -54,8 +54,12 @@ public class App extends BasicGame {
     @Override
     public void update(GameContainer gc, int delta)
             throws SlickException {
+
         // Get data about the current input (keyboard state).
         Input input = gc.getInput();
+        if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            System.out.println(input.getMouseX());
+        }
         if(counter >= SCALING_TIME) {
             world.update(input, delta);
             counter = 0;

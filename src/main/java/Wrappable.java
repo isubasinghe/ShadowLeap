@@ -9,7 +9,7 @@ import org.newdawn.slick.Input;
  * will be obstacles that wrap around as well.
  * @author  Isitha Subasinghe
  * @author https://isubasinghe.me
- * @version 0.2
+ * @version 0.3
  */
 public class Wrappable extends Sprite {
     /** A constant representing the left direction*/
@@ -52,7 +52,7 @@ public class Wrappable extends Sprite {
                 // Check if we have gone too much to the left
                 if((this.getX() + this.getImage().getWidth()/2) < 0) {
                     // We move the sprite to the right hand side of the screen
-                    this.shiftPosition(App.SCREEN_WIDTH  + this.getImage().getWidth()/2, 0, false);
+                    this.shiftPosition(App.SCREEN_WIDTH  + this.getImage().getWidth(), 0, false);
                 }else {
                     // We can move more to the left, so move more.
                     this.shiftPosition(-delta*speed, 0, false);
@@ -63,7 +63,7 @@ public class Wrappable extends Sprite {
                 // Check if we have gone too much to the right
                 if(this.getX() > App.SCREEN_WIDTH + this.getImage().getWidth()/2) {
                     // Move the sprite to the left hand side of the screen
-                    this.shiftPosition(-App.SCREEN_WIDTH-this.getImage().getWidth()/2, 0, false);
+                    this.shiftPosition(-App.SCREEN_WIDTH-this.getImage().getWidth(), 0, false);
                 }else {
                     // The sprite can move more to the right, so keep on moving.
                     this.shiftPosition(delta*speed, 0, false);
@@ -78,6 +78,10 @@ public class Wrappable extends Sprite {
         }
     }
 
+    /**
+     * Set the travel direction
+     * @param DIR The travel direction
+     */
     public void setTravelDirection(int DIR) {
         this.travelDirection = DIR;
     }

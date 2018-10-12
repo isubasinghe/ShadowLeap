@@ -15,31 +15,57 @@ import java.util.Scanner;
 public class LevelBuilder {
     public static final int PLAYER_X = 512;
     public static final int PLAYER_Y = 720;
+
+    /**
+     * A simple function to read a file and generate sprites based upon the
+     * file provided.
+     * @param path The location of the file
+     * @return An ArrayList of Sprite objects in the level data.
+     * @throws Exception
+     */
     public static ArrayList<Sprite> buildWorldByCSV(String path) throws Exception{
         ArrayList<Sprite> sprites = new ArrayList<>();
+
+        // Read the file
         FileReader fr = new FileReader(path);
         Scanner sc = new Scanner(fr);
-        sc.useDelimiter(",");
+
+        // While there is another line
         while (sc.hasNext()) {
+            // The newline's contents
             String info = sc.nextLine();
+
+            //Split them into their columns
             String[] data = info.split(",");
+
+            // Generic data all sprites must have
             String assetName = data[0];
             int assetX = Integer.parseInt(data[1]);
             int assetY = Integer.parseInt(data[2]);
 
+            //Debug
             System.out.print("|" + assetName + "|" + assetX + "|" + assetY + "|");
+
+            // Sprite is a moving sprite and contain direction info,
+            // hence the additional field
             if(data.length == 4) {
+                //Obtain direction
                 boolean assetDir = Boolean.parseBoolean(data[3]);
+                // Obtain direction info to print
                 String dir = "LEFT";
                 if(assetDir) {
                     dir = "RIGHT";
                 }
+                //Obtain direction info to load sprite
                 int travelDir = Wrappable.DIR_LEFT;
                 if(assetDir) {
                     travelDir = Wrappable.DIR_RIGHT;
                 }
+
+                //Debug
                 System.out.print(dir + "|");
 
+                //Load the relevant sprite
                 switch(assetName) {
                     case "log":
                         Log log = new Log("log", assetX, assetY, Log.LOG_SPEED, travelDir);
@@ -73,6 +99,7 @@ public class LevelBuilder {
                         System.out.println("Unable to load this asset");
                 }
             }else {
+                // Load the relevant non moving sprite
                 switch(assetName) {
                     case "water":
                         Sprite water = new Sprite(AssetManager.getImage("water"), assetX, assetY, true);
@@ -94,8 +121,14 @@ public class LevelBuilder {
 
             System.out.println();
         }
+
+        //Close our files and return the read data
         sc.close();
         fr.close();
+
+        ExtraLife extraLife = new ExtraLife(sprites);
+        System.out.println("Added extra life");
+        sprites.add(extraLife);
         return sprites;
     }
 
