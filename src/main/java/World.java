@@ -83,8 +83,9 @@ public class World {
 			sprite.update(input, delta);
 			player.setMoveValidity(sprite);
 		}
-		//player.update(input, delta);
 
+		// The update for physics must be done in the reverse order
+		// to ensure Turtles, Logs are collided with first
 		for(int i=sprites.size()-1; i >= 0; i--) {
 			Sprite sprite = sprites.get(i);
 			if(sprite.isCollidable() && player.intersects(sprite)) {
