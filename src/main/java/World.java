@@ -36,6 +36,7 @@ public class World {
 	}
 	private void loadLevel() {
 		try {
+			logs.clear();
 			String file = String.format("%s/%d.lvl", LEVELS_FLDR, level);
 			sprites = LevelBuilder.buildWorldByCSV(file);
 			level++;
