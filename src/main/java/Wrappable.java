@@ -23,6 +23,7 @@ public class Wrappable extends Sprite {
     /**Represents the direction of travel*/
     protected int travelDirection;
 
+
     /**
      * A class that im
      * @param img The image to use when rendering
@@ -64,6 +65,7 @@ public class Wrappable extends Sprite {
                 if(this.getX() > App.SCREEN_WIDTH + this.getImage().getWidth()/2) {
                     // Move the sprite to the left hand side of the screen
                     this.shiftPosition(-App.SCREEN_WIDTH-this.getImage().getWidth(), 0, false);
+                    //System.out.println("Wrapped");
                 }else {
                     // The sprite can move more to the right, so keep on moving.
                     this.shiftPosition(delta*speed, 0, false);

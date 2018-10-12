@@ -19,10 +19,12 @@ public class World {
 	// store all the sprites that we need to render
 	private ArrayList<Sprite> sprites;
 
+	private ArrayList<Log> logs;
+
 	private static final String LEVELS_FLDR = "./assets/levels";
 	private static int level = 0;
-	private static final int TIME_MIN_MILLI = 25*100;
-	private static  final int BOUND_ZEROED = (35*100) - TIME_MIN_MILLI;
+	private static final int TIME_MIN_MILLI = 25*1000;
+	private static  final int BOUND_ZEROED = (35*1000) - TIME_MIN_MILLI;
 
 	private int currentTime = 0;
 	private int randomTimer = 0;
@@ -43,14 +45,26 @@ public class World {
 
 			System.exit(1);
 		}
+		getLogs();
+	}
+
+	// Store the logs in a separate array for quick access
+	private void getLogs() {
+		for(int i=0; i < sprites.size(); i++) {
+			if(sprites.get(i) instanceof Log) {
+				logs.add((Log)sprites.get(i));
+			}
+		}
 	}
 
 	/**
 	 *  Create the world used in the game.
 	 */
 	public World() throws SlickException{
-		player = new Player(AssetManager.getImage("frog"), LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y, true);
+		player = new Player(AssetManager.getImage("frog"),
+				LevelBuilder.PLAYER_X, LevelBuilder.PLAYER_Y, true);
 		rand = new Random();
+		logs = new ArrayList<>();
 		loadLevel();
 		startTimer();
 	}
@@ -87,10 +101,19 @@ public class World {
 	}
 
 
+	/**
+	 * Create a new ExtraLife at a random log
+	 * @param delta time passed in milli seconds
+	 * @throws SlickException
+	 */
 	private void spawnExtraLife(int delta) throws SlickException{
+		// Ensure the time has past the random time
 		if(currentTime >= randomTimer) {
+			// restart the timer
 			startTimer();
-			ExtraLife extraLife = new ExtraLife(sprites);
+			//Get a random log a spawn it
+			Log log = logs.get(rand.nextInt(logs.size()));
+			ExtraLife extraLife = new ExtraLife(sprites, log);
 			sprites.add(extraLife);
 		}
 		currentTime += delta;
@@ -127,7 +150,7 @@ public class World {
 		}
 		// If the player has reached all the frog holes reset the count
 		// and load the next level
-		if(FrogSlots.allSlotsDone(player)) {
+		if(FrogSlots.allSlotsDone()) {
 			FrogSlots.resetSlots();
 			loadLevel();
 		}

@@ -125,10 +125,6 @@ public class LevelBuilder {
         //Close our files and return the read data
         sc.close();
         fr.close();
-
-        ExtraLife extraLife = new ExtraLife(sprites);
-        System.out.println("Added extra life");
-        sprites.add(extraLife);
         return sprites;
     }
 
